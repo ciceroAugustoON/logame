@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("logame.App")
+    mainClass.set("logame.LogameApplication")
 }
 
 tasks.named<Test>("test") {

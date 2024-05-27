@@ -22,13 +22,10 @@ public class Game {
     private String cover;
     @PrimaryKey
     private Integer id;
-    @ForeignKey(cardinality = Cardinality.OneToMany, tableName = "played_time")
-    private List<PlayedTime> playedTimes;
 
     public Game(Integer id, String name) {
         this.id = id;
         this.name = name;
-        playedTimes = new ArrayList<>();
     }
 
     public String getName() {
@@ -69,15 +66,5 @@ public class Game {
     }
     public Integer getId() {
         return id;
-    }
-
-    public List<PlayedTime> getPlayedTimes() {
-        return playedTimes;
-    }
-    public void addPlayedTime(PlayedTime playedTime) {
-        playedTimes.add(playedTime);
-    }
-    public void removePlayedTime(PlayedTime playedTime) {
-        playedTimes.remove(playedTime);
     }
 }

@@ -38,5 +38,6 @@ public class DBTemplate {
     public @interface ForeignKey {
         Cardinality cardinality();
         String tableName();
+        String foreignFieldName();
     };
 }

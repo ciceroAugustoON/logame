@@ -2,7 +2,9 @@ package logame.entities;
 
 import java.util.Date;
 
+import logame.db.DBTemplate.Cardinality;
 import logame.db.DBTemplate.Column;
+import logame.db.DBTemplate.ForeignKey;
 import logame.db.DBTemplate.NotNull;
 import logame.db.DBTemplate.PrimaryKey;
 import logame.db.DBTemplate.Table;
@@ -20,6 +22,8 @@ public class PlayedTime {
     private LogState state;
     @PrimaryKey
     private Integer id;
+    @ForeignKey(cardinality = Cardinality.OneToMany, tableName = "game", foreignFieldName = "id")
+    private Integer gameId;
 
     public PlayedTime(Integer id, LogState state) {
         this.id = id;
