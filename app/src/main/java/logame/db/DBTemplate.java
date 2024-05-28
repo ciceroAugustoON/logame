@@ -7,12 +7,6 @@ import java.lang.annotation.Target;
 
 public class DBTemplate {
 
-    public enum Cardinality {
-        OneToOne,
-        OneToMany,
-        ManyToMany
-    }
-
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     public @interface Table {
@@ -36,8 +30,13 @@ public class DBTemplate {
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
     public @interface ForeignKey {
-        Cardinality cardinality();
         String tableName();
         String foreignFieldName();
     };
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Varchar {
+        int limit() default 30;
+    }
 }

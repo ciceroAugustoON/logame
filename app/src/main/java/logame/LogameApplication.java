@@ -8,15 +8,14 @@ import logame.entities.Game;
 import logame.entities.PlayedTime;
 
 public class LogameApplication {
-    private static String dbVersion = "0.5.0";
+    private final static String dbVersion = "0.5.0";
+
     public static void main(String[] args) {
         init();
     }
 
     public static void init() {
         configuration();
-
-
     }
 
     public static void configuration() {
@@ -27,6 +26,8 @@ public class LogameApplication {
             for (Class<?> entity : entities()) {
                 DBConfig.createTable(entity);
             }
+
+            logameConfigurations.create("AssetsPath", "");
         }
     }
 

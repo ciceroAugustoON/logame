@@ -1,25 +1,32 @@
 package logame.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import logame.db.DBTemplate.Cardinality;
 import logame.db.DBTemplate.Column;
-import logame.db.DBTemplate.ForeignKey;
 import logame.db.DBTemplate.NotNull;
 import logame.db.DBTemplate.PrimaryKey;
 import logame.db.DBTemplate.Table;
+import logame.db.DBTemplate.Varchar;
 
 @Table(tableName = "game")
 public class Game {
     @NotNull
+    @Varchar(limit = 255)
     private String name;
+
     @Column(columnName = "release_year")
     private Integer releaseYear;
+
+    @Varchar(limit = 64)
     private String genre;
+
+    @Varchar(limit = 64)
     private String scope;
+
+    @Varchar(limit = 64)
     private String icon;
+
+    @Varchar(limit = 64)
     private String cover;
+    
     @PrimaryKey
     private Integer id;
 

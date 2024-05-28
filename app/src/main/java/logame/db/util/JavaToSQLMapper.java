@@ -10,6 +10,7 @@ import logame.db.DBTemplate.ForeignKey;
 import logame.db.DBTemplate.NotNull;
 import logame.db.DBTemplate.PrimaryKey;
 import logame.db.DBTemplate.Table;
+import logame.db.DBTemplate.Varchar;
 import logame.entities.enumerations.LogState;
 
 public class JavaToSQLMapper {
@@ -64,8 +65,10 @@ public class JavaToSQLMapper {
         table.append("(\n");
 
         Field[] fields = entity.getDeclaredFields();
+
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
+            
             if (field.getAnnotation(Column.class) != null) {
                 table.append(field.getAnnotation(Column.class).columnName());
             } else {
@@ -74,6 +77,9 @@ public class JavaToSQLMapper {
             table.append(" ");
 
             table.append(getSqlType(field));
+            if (field.getAnnotation(Varchar.class) != null) {
+                table.append("(" + field.getAnnotation(Varchar.class).limit() + ")");
+            }
 
             if (field.getAnnotation(PrimaryKey.class) != null) {
                 table.append(" PRIMARY KEY");
