@@ -30,6 +30,15 @@ public class JdbcClient {
             return this;
         }
 
+        public StatementSpec params(Object ...values) {
+            int jdbcIndex = 0;
+            for (Object value : values) {
+                params.put(jdbcIndex, convertToSQL(value));
+                jdbcIndex++;
+            }
+            return this;
+        }
+
         public String query() { // Just for test
             try {
                 return assembleQuery();
@@ -55,16 +64,20 @@ public class JdbcClient {
             return value.toString();
         }
 
-        private String assembleQuery() throws Exception{
+        private String assembleQuery() throws QueryException{
             String query = sql;
 
             for (Map.Entry<Integer, String> entry : params.entrySet()) {
-                if (entry.getKey() == -1) {
-                    throw new Exception("Invalid Position to entry: " + entry.getValue());
+                if (entry.getKey() < 0) {
+                    throw new QueryException("Invalid Position to entry: " + entry.getValue());
                 }
 
                 int start = findPlaceHolder(entry.getKey(), query);
                 int end = endIndex(start, query);
+
+                if (start == -1) {
+                    throw new QueryException("Invalid jdbcIndex: " + entry.getKey());
+                }
 
                 if (end == -1) {
                     query = query.replace(query.substring(start), entry.getValue());
@@ -88,6 +101,10 @@ public class JdbcClient {
             
             return end;
         }
+    }
+
+    public class MappedQuerySpec<T> {
+
     }
 }
 
