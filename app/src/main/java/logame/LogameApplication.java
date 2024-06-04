@@ -1,15 +1,10 @@
 package logame;
 
-import java.util.List;
-
 import org.sqlite.FileException;
 
 import java.io.File;
 
 import logame.config.Config;
-import logame.db.DBConfig;
-import logame.entities.Game;
-import logame.entities.PlayedTime;
 
 public class LogameApplication {
     private final static String dbVersion = "0.5.0";
@@ -32,9 +27,6 @@ public class LogameApplication {
 
         if (logameConfigurations.isEmpty()) {
             logameConfigurations.create("DBVersion", dbVersion);
-            for (Class<?> entity : entities()) {
-                DBConfig.createTable(entity);
-            }
 
             logameConfigurations.create("AssetsPath", assetsPath);
             if (new File(assetsPath).mkdir()) {
@@ -43,9 +35,5 @@ public class LogameApplication {
                 throw new FileException("Could not create the AssetsPath");
             }
         }
-    }
-
-    public static List<Class<?>> entities() {
-        return List.of(Game.class, PlayedTime.class);
     }
 }

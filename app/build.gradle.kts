@@ -30,6 +30,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation("org.xerial:sqlite-jdbc:3.45.3.0")
 
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+    implementation("org.hibernate.orm:hibernate-core:6.5.2.Final")
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-community-dialects
+    implementation("org.hibernate.orm:hibernate-community-dialects:6.5.2.Final")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

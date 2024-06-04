@@ -1,37 +1,31 @@
 package logame.entities;
 
-import logame.db.DBTemplate.Column;
-import logame.db.DBTemplate.NotNull;
-import logame.db.DBTemplate.PrimaryKey;
-import logame.db.DBTemplate.Table;
-import logame.db.DBTemplate.Varchar;
+import java.util.ArrayList;
+import java.util.List;
 
-@Table(tableName = "game")
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Game {
-    @NotNull
-    @Varchar(limit = 255)
-    private String name;
-
-    @Column(columnName = "release_year")
-    private Integer releaseYear;
-
-    @Varchar(limit = 64)
-    private String genre;
-
-    @Varchar(limit = 64)
-    private String scope;
-
-    @Varchar(limit = 64)
-    private String icon;
-
-    @Varchar(limit = 64)
-    private String cover;
-    
-    @PrimaryKey
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
+    private String name;
+    private Integer releaseYear;
+    private String genre;
+    private String scope;
+    private String icon;
+    private String cover;
+    @OneToMany
+    private List<PlayedTime> playedTimes = new ArrayList<>();
 
-    public Game(Integer id, String name) {
-        this.id = id;
+    public Game() {}
+
+    public Game(String name) {
         this.name = name;
     }
 
@@ -73,5 +67,14 @@ public class Game {
     }
     public Integer getId() {
         return id;
+    }
+    @OneToMany
+    public List<PlayedTime> getPlayedTimes() {
+        return playedTimes;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

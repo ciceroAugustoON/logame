@@ -2,35 +2,25 @@ package logame.entities;
 
 import java.util.Date;
 
-import logame.db.DBTemplate.Column;
-import logame.db.DBTemplate.ForeignKey;
-import logame.db.DBTemplate.NotNull;
-import logame.db.DBTemplate.PrimaryKey;
-import logame.db.DBTemplate.Table;
-import logame.db.DBTemplate.Varchar;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import logame.entities.enumerations.LogState;
 
-@Table(tableName = "played_time")
+@Entity
 public class PlayedTime {
-    @NotNull
-    @Varchar(limit = 64)
-    private String platform;
-
-    @Column(columnName = "finished_date")
-    private Date finishedDate;
-
-    @Column(columnName = "minutes_played")
-    private Integer minutesPlayed;
-
-    @NotNull
-    @Varchar(limit = 10)
-    private LogState state;
-
-    @PrimaryKey
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
-
-    @ForeignKey(tableName = "game", foreignFieldName = "id")
-    private Integer gameId;
+    private String platform;
+    @Column(name = "finished_date")
+    private Date finishedDate;
+    @Column(name = "minutes_played")
+    private Integer minutesPlayed;
+    @Column(columnDefinition = "VARCHAR(30) NOT NULL")
+    private LogState state;
 
     public PlayedTime(Integer id, LogState state) {
         this.id = id;
