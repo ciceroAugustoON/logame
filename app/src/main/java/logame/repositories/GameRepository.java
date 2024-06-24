@@ -2,14 +2,11 @@ package logame.repositories;
 
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import logame.entities.Game;
 
-public class GameRepository implements Repository<Game> {
+public class GameRepository{
 
-    @Override
+    /*@Override
     public List<Game> findAll() {
         EntityManagerFactory emf = PeristenceUnit.getEmf();
         EntityManager em = emf.createEntityManager();
@@ -51,6 +48,6 @@ public class GameRepository implements Repository<Game> {
         em.getTransaction().commit();
         em.close();
         emf.close();
-    }
+    }*/
     
 }

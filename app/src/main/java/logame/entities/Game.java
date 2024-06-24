@@ -3,16 +3,7 @@ package logame.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-@Entity
-public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+public class Game{
     private Integer id;
     private String name;
     private Integer releaseYear;
@@ -20,7 +11,6 @@ public class Game {
     private String scope;
     private String icon;
     private String cover;
-    @OneToMany
     private List<PlayedTime> playedTimes = new ArrayList<>();
 
     public Game() {}
@@ -68,7 +58,6 @@ public class Game {
     public Integer getId() {
         return id;
     }
-    @OneToMany
     public List<PlayedTime> getPlayedTimes() {
         return playedTimes;
     }
