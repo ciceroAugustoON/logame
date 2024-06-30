@@ -11,4 +11,6 @@ public interface Repository<T> {
     public void create(T entity);
 
     public void update(T entity);
+
+    public int returnLastId();
 }

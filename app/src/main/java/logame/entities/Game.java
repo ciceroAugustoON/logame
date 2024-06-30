@@ -15,7 +15,8 @@ public class Game{
 
     public Game() {}
 
-    public Game(String name) {
+    public Game(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -58,10 +59,12 @@ public class Game{
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public List<PlayedTime> getPlayedTimes() {
         return playedTimes;
     }
-
     @Override
     public String toString() {
         return getName();
