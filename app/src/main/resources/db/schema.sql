@@ -9,10 +9,10 @@ CREATE TABLE IF NOT EXISTS game (
 );
 CREATE TABLE IF NOT EXISTS played_time (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    state VARCHAR(16) NOT NULL,
     platform VARCHAR(128),
     finished_date DATE,
     minutes_played INT,
-    state VARCHAR(16),
     game_id INT,
     FOREIGN KEY(game_id) REFERENCES game(id)
 );

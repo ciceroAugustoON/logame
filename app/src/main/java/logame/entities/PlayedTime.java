@@ -10,6 +10,7 @@ public class PlayedTime {
     private Date finishedDate;
     private Integer minutesPlayed;
     private LogState state;
+    private Integer gameId;
 
     public PlayedTime(Integer id, LogState state) {
         this.id = id;
@@ -37,10 +38,19 @@ public class PlayedTime {
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public LogState getState() {
         return state;
     }
     public void setState(LogState state) {
         this.state = state;
+    }
+    public Integer getGameId() {
+        return gameId;
+    }
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 }
