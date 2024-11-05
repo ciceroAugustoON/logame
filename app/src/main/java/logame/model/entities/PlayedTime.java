@@ -1,10 +1,12 @@
-package logame.entities;
+package logame.model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import logame.entities.enumerations.LogState;
 
-public class PlayedTime {
+public class PlayedTime implements Serializable{
+	private static final long serialVersionUID = 1L;
     private Integer id;
     private String platform;
     private Date finishedDate;

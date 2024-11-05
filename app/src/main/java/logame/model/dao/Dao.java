@@ -1,8 +1,8 @@
-package logame.repositories;
+package logame.model.dao;
 
 import java.util.List;
 
-public interface Repository<T> {
+public interface Dao<T> {
     
     public List<T> findAll();
 
@@ -11,6 +11,4 @@ public interface Repository<T> {
     public void create(T entity);
 
     public void update(T entity);
-
-    public int returnLastId();
 }

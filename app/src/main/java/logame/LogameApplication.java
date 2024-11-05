@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 
 import logame.config.Config;
-import logame.db.DBConnection;
+import logame.db.DB;
 import logame.db.DBManagement;
 
 public class LogameApplication {
@@ -31,7 +31,7 @@ public class LogameApplication {
 
     public static void configuration(boolean verbose) throws FileException, FileNotFoundException{
         Config logameConfigurations = Config.load();
-        DBConnection.setSqlUrl(dbPath);
+        DB.setUrl(dbPath);
         if (logameConfigurations.isEmpty()) {
             if (verbose) System.out.println("Creating a new DB...");
             logameConfigurations.create("DBVersion", dbVersion);

@@ -1,10 +1,12 @@
-package logame.entities;
+package logame.model.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game{
-    private Integer id;
+public class Game implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private String name;
     private Integer releaseYear;
     private String genre;

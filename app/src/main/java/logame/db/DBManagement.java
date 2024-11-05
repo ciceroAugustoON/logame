@@ -15,7 +15,7 @@ public class DBManagement {
                 stringBuilder.append(str);
                 str = schema.readLine();
             }
-            try (Connection conn = DBConnection.connect(); var stmt = conn.createStatement()) {
+            try (Connection conn = DB.getConnection(); var stmt = conn.createStatement()) {
                 stmt.execute(stringBuilder.toString());
             } catch (SQLException e) {
                 e.printStackTrace();
