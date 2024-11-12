@@ -1,6 +1,6 @@
 package logame.model.dao;
 
-import logame.db.DB;
+import db.DB;
 import logame.model.dao.impl.GameDaoJDBC;
 import logame.model.dao.impl.PlayedTimeDaoJDBC;
 import logame.model.entities.Game;

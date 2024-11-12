@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import logame.db.DB;
-import logame.db.DbException;
+import db.DB;
+import db.DbException;
 import logame.entities.enumerations.LogState;
 import logame.model.dao.Dao;
 import logame.model.entities.PlayedTime;

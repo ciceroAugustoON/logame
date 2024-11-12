@@ -1,4 +1,4 @@
-package logame.db;
+package db;
 
 public class DbException extends RuntimeException {
 

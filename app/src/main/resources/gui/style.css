@@ -1,0 +1,28 @@
+.root {
+	-fx-font: "sans-serif";
+	-fx-font-size: 15px;
+}
+
+AnchorPane {
+	-fx-background-color: #D1D1D1;
+}
+
+HBox, VBox {
+	-fx-spacing: 5px;
+}
+
+.btn {
+	-fx-min-height: 35px;
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+#searchbar {
+	-fx-pref-width: 420px;
+	-fx-pref-height: 35px;
+}
+
+#conf {
+	-fx-background-image: "assets\config.jpg";
+}
