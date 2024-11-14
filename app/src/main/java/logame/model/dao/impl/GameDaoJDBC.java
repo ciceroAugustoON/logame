@@ -10,14 +10,18 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import logame.model.dao.Dao;
+import logame.entities.enumerations.LogState;
+import logame.model.dao.GameDao;
+import logame.model.dao.PlayedTimeDao;
 import logame.model.entities.Game;
 
-public class GameDaoJDBC implements Dao<Game>{
+public class GameDaoJDBC implements GameDao{
 	private Connection conn;
+	private PlayedTimeDao playedTimeDao;
 	
-	public GameDaoJDBC(Connection conn) {
+	public GameDaoJDBC(Connection conn, PlayedTimeDao playedTimeDao) {
 		this.conn = conn;
+		this.playedTimeDao = playedTimeDao;
 	}
 
     @Override
@@ -30,6 +34,7 @@ public class GameDaoJDBC implements Dao<Game>{
 			List<Game> games = new ArrayList<>();
 			while (rs.next()) {
 				Game game = instantiateGame(rs);
+				game.addAllPlayedTimes(playedTimeDao.findByGameId(game.getId()));
                 games.add(game);
 			}
 			return games;
@@ -52,6 +57,7 @@ public class GameDaoJDBC implements Dao<Game>{
 			Game game = null;
 			if (rs.next()) {
 				game = instantiateGame(rs);
+				game.addAllPlayedTimes(playedTimeDao.findByGameId(game.getId()));
 			}
 			return game;
 		} catch (SQLException e) {
@@ -60,6 +66,15 @@ public class GameDaoJDBC implements Dao<Game>{
 			DB.closeResultSet(rs);
 			DB.closeStatement(stmt);
 		}
+    }
+    @Override
+    public List<Game> findByState(LogState state) {
+    	return findAll().stream().filter(game -> {
+    		if (game.getPlayedTimes() != null && !game.getPlayedTimes().isEmpty()) {
+    			return (game.getPlayedTimes().getLast().getState() == state) ? true : false;
+    		}
+    		return false;
+    	}).toList();
     }
 
     @Override

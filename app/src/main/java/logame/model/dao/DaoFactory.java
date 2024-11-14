@@ -8,11 +8,11 @@ import logame.model.entities.PlayedTime;
 
 public class DaoFactory {
 	
-	public static Dao<Game> createGameDao() {
-		return new GameDaoJDBC(DB.getConnection());
+	public static GameDao createGameDao() {
+		return new GameDaoJDBC(DB.getConnection(), createPlayedTimeDao());
 	}
 	
-	public static Dao<PlayedTime> createPlayedTimeDao() {
+	public static PlayedTimeDao createPlayedTimeDao() {
 		return new PlayedTimeDaoJDBC(DB.getConnection());
 	}
 

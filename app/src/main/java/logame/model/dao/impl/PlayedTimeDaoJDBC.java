@@ -6,15 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import db.DB;
 import db.DbException;
 import logame.entities.enumerations.LogState;
-import logame.model.dao.Dao;
+import logame.model.dao.PlayedTimeDao;
 import logame.model.entities.PlayedTime;
 
-public class PlayedTimeDaoJDBC implements Dao<PlayedTime> {
+public class PlayedTimeDaoJDBC implements PlayedTimeDao {
 	private Connection conn;
 	
 	public PlayedTimeDaoJDBC(Connection conn) {
@@ -42,7 +43,7 @@ public class PlayedTimeDaoJDBC implements Dao<PlayedTime> {
 			DB.closeStatement(stmt);
 		}
     }
-
+    @Override
 	public List<PlayedTime> findByGameId(Integer id) {
         String sql = "SELECT * FROM played_time WHERE game_id = ?";
         PreparedStatement stmt = null;
@@ -133,7 +134,8 @@ public class PlayedTimeDaoJDBC implements Dao<PlayedTime> {
     private PlayedTime instantiatePlayedTime(ResultSet rs) throws SQLException{
     	PlayedTime playedTime = new PlayedTime(rs.getInt("id"), LogState.valueOf(rs.getString("state")));
         playedTime.setPlatform(rs.getString("platform"));
-        playedTime.setFinishedDate(rs.getDate("finished_date"));
+        Date finishedDate = rs.getDate("finished_date");
+        if (finishedDate != null) playedTime.setFinishedDate(new Date(finishedDate.getTime()));
         playedTime.setMinutesPlayed(rs.getInt("minutes_played"));
         playedTime.setGameId(rs.getInt("game_id"));
 		return playedTime;

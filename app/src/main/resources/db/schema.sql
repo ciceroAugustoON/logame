@@ -26,8 +26,8 @@ INSERT INTO game (name, release_year, genre, scope) VALUES
 
 
 INSERT INTO played_time (state, platform, finished_date, minutes_played, game_id) VALUES
-('Completed', 'Nintendo Switch', '2020-10-15', 3000, 1),
-('In Progress', 'PC', NULL, 4500, 2),
-('Completed', 'PlayStation 4', '2017-07-10', 5200, 3),
-('Not Started', 'Mobile', NULL, 0, 4),
-('Completed', 'PC', '2019-02-20', 800, 5);
+('FINISHED', 'Nintendo Switch', '2020-10-15', 3000, 1),
+('PLAYING', 'PC', '2024-05-20', 4500, 2),
+('FINISHED', 'PlayStation 4', '2017-07-10', 5200, 3),
+('BACKLOG', 'Mobile', '2023-03-11', 0, 4),
+('FINISHED', 'PC', '2019-02-20', 800, 5);

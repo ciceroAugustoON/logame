@@ -64,6 +64,15 @@ public class Game implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
+    public void addAllPlayedTimes(List<PlayedTime> playedTimes) {
+    	this.playedTimes.addAll(playedTimes);
+    }
+    public void addPlayedTime(PlayedTime playedTime) {
+    	playedTimes.add(playedTime);
+    }
+    public void removePlayedTime(PlayedTime playedTime) {
+    	playedTimes.remove(playedTime);
+    }
     public List<PlayedTime> getPlayedTimes() {
         return playedTimes;
     }

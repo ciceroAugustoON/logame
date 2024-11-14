@@ -9,9 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -20,19 +20,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import logame.entities.enumerations.LogState;
-import logame.model.dao.Dao;
 import logame.model.dao.DaoFactory;
+import logame.model.dao.GameDao;
 import logame.model.entities.Game;
 
 public class MainViewController implements Initializable{
-	private Dao<Game> gameDao;
+	private GameDao gameDao;
+	private List<AnchorPane> gamesComponent = new ArrayList<>();
 	@FXML
 	private VBox mainVBox;
 	@FXML
 	private ChoiceBox<String> stateChoiceBox;
 	
 	private void loadGames(LogState state) {
-		ObservableList<Game> gamesList = FXCollections.observableList(gameDao.findAll());
+		ObservableList<Game> gamesList = FXCollections.observableList(gameDao.findByState(state));
+		removeAllGamesGUI();
 		for (Game game : gamesList) {
 			loadGameGUI(game);
 		}
@@ -47,6 +49,7 @@ public class MainViewController implements Initializable{
 		AnchorPane anchorPane = new AnchorPane(iconImageView, label);
 		anchorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#fff"), null, null)));
 		anchorPane.setPrefHeight(50);
+		anchorPane.setCursor(Cursor.HAND);
 		
 		iconImageView.setLayoutX(15);
 		iconImageView.setLayoutY((anchorPane.getPrefHeight() - iconImageView.getFitHeight()) / 2);
@@ -55,7 +58,14 @@ public class MainViewController implements Initializable{
 		label.setLayoutX(iconImageView.getLayoutX() + iconImageView.getFitWidth() + 15);
 		label.setLayoutY((50 - 30) / 2);
 		
+		gamesComponent.add(anchorPane);
 		mainVBox.getChildren().add(anchorPane);
+	}
+	
+	private void removeAllGamesGUI() {
+		for (AnchorPane anchorPane : gamesComponent) {
+			mainVBox.getChildren().remove(anchorPane);
+		}
 	}
 	
 	@Override
