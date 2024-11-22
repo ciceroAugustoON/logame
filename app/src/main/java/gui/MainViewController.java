@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import gui.util.Responsivity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -47,7 +49,7 @@ public class MainViewController implements Initializable{
 		Label label = new Label(game.getName());
 		
 		AnchorPane anchorPane = new AnchorPane(iconImageView, label);
-		anchorPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#fff"), null, null)));
+		anchorPane.setStyle("-fx-background-color: #ffffff");
 		anchorPane.setPrefHeight(50);
 		anchorPane.setCursor(Cursor.HAND);
 		
@@ -60,6 +62,8 @@ public class MainViewController implements Initializable{
 		
 		gamesComponent.add(anchorPane);
 		mainVBox.getChildren().add(anchorPane);
+		Responsivity.setWidth(anchorPane, 12);
+		Responsivity.setPadding(anchorPane);
 	}
 	
 	private void removeAllGamesGUI() {

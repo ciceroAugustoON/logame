@@ -1,10 +1,7 @@
 package logame;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.file.Path;
 
 import org.sqlite.FileException;
 
@@ -12,8 +9,8 @@ import config.Config;
 import db.DB;
 import db.DBManagement;
 import gui.GUIManager;
+import gui.util.Responsivity;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class LogameApplication extends Application {
@@ -59,5 +56,6 @@ public class LogameApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		GUIManager.loadPrimaryStage("Logame", primaryStage, "/gui/MainView.fxml");
+		Responsivity.listen(primaryStage, 12);
 	}
 }

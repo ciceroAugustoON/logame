@@ -18,9 +18,17 @@ HBox, VBox {
 	-fx-font-weight: bold;
 }
 
+.btn-primary {
+	-fx-background-color: #1E91D6;
+}
+
+.btn-success {
+	-fx-background-color: #57C723;
+}
+
 #searchbar {
 	-fx-pref-width: 420px;
-	-fx-pref-height: 35px;
+	-fx-min-height: inherit;
 }
 
 #conf {
