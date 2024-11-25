@@ -9,7 +9,6 @@ import config.Config;
 import db.DB;
 import db.DBManagement;
 import gui.GUIManager;
-import gui.util.Responsivity;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -56,6 +55,5 @@ public class LogameApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		GUIManager.loadPrimaryStage("Logame", primaryStage, "/gui/MainView.fxml");
-		Responsivity.listen(primaryStage, 12);
 	}
 }

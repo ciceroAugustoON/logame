@@ -10,16 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import logame.entities.enumerations.LogState;
 import logame.model.dao.DaoFactory;
@@ -62,8 +59,7 @@ public class MainViewController implements Initializable{
 		
 		gamesComponent.add(anchorPane);
 		mainVBox.getChildren().add(anchorPane);
-		Responsivity.setWidth(anchorPane, 12);
-		Responsivity.setPadding(anchorPane);
+		Responsivity.keepWidth(anchorPane, 12);
 	}
 	
 	private void removeAllGamesGUI() {
@@ -75,6 +71,9 @@ public class MainViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameDao = DaoFactory.createGameDao();
+		
+		Responsivity.listen(mainVBox, 12);
+		Responsivity.keepPadding(mainVBox);
 		
 		List<String> states = new ArrayList<String>();
 		List.of(LogState.values()).forEach(item -> {states.add(item.patternName());});

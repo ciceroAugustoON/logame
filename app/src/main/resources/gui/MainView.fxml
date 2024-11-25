@@ -22,7 +22,7 @@
          </styleClass></ChoiceBox>
       <HBox prefWidth="790.0" spacing="15.0">
          <children>
-            <TextField id="searchbar" prefWidth="744.0" />
+            <TextField id="searchbar" prefHeight="41.0" prefWidth="744.0" />
             <Button id="conf" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="41.6" prefWidth="42.0" text="*">
                <styleClass>
                   <String fx:value="btn" />
@@ -35,7 +35,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" prefWidth="186.0" text="Add Game" textAlignment="CENTER">
+            <Button alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="186.0" text="Add Game" textAlignment="CENTER">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-success" />

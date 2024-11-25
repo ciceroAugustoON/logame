@@ -1,11 +1,13 @@
 package gui.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class Responsivity {
 	private Double width;
@@ -13,7 +15,10 @@ public class Responsivity {
 	private Double columnSize;
 	private Double paddingX;
 	
-	private static Map<Stage,Responsivity> listeners = new HashMap<>();
+	private static Map<Parent,Responsivity> listeners = new HashMap<>();
+	
+	private static Map<Pane, Integer> elementsWidth = new HashMap<>();
+	private static List<Pane> elementsPadding = new ArrayList<>();
 	
 	private Responsivity(Double width, Integer columns) {
 		this.width = width;
@@ -39,7 +44,7 @@ public class Responsivity {
 	}
 
 	public void calculate() {
-		if (width >= 1280) {
+		if (width >= 480) {
 			paddingX = width * 0.10;
 		} else {
 			paddingX = 5.0;
@@ -47,24 +52,41 @@ public class Responsivity {
 		columnSize = (width - paddingX) / columns;
 	}
 	
-	public static void listen(Stage stage, Integer columnsNumber) {
-		var resp = new Responsivity(stage.getWidth(), columnsNumber);
-		listeners.put(stage, resp);
-		stage.widthProperty().addListener((obs, oldValue, newValue) -> {
+	public static void listen(Pane pane, Integer columnsNumber) {
+		var resp = new Responsivity(pane.getWidth(), columnsNumber);
+		listeners.put(pane, resp);
+		pane.widthProperty().addListener((obs, oldValue, newValue) -> {
 			resp.setWidth(newValue);
-			System.out.println(resp.getWidth());
+			updateElements();
 		});
 	}
 	
 	public static void setPadding(Pane pane) {
-		Stage stage = (Stage) pane.getScene().getWindow();
-		Double padding = listeners.get(stage).getPaddingX();
+		Parent parent = (pane.getParent() == null) ? pane : pane.getParent();
+		Double padding = listeners.get(parent).getPaddingX();
 		pane.setPadding(new Insets(0, padding, 0, padding));
 	}
 	
 	public static void setWidth(Pane pane, Integer columns) {
-		Stage stage = (Stage) pane.getScene().getWindow();
-		Double width = listeners.get(stage).getColumnSize() * columns;
+		Parent parent = (pane.getParent() == null) ? pane : pane.getParent();
+		Double width = listeners.get(parent).getColumnSize() * columns;
 		pane.setPrefWidth(width);
+	}
+	
+	public static void keepWidth(Pane pane, Integer columns) {
+		elementsWidth.put(pane, columns);
+	}
+	
+	public static void keepPadding(Pane pane) {
+		elementsPadding.add(pane);
+	}
+	
+	private static void updateElements() {
+		elementsWidth.forEach((key, value) -> {
+			setWidth(key, value);
+		});
+		elementsPadding.forEach((element) -> {
+			setPadding(element);
+		});
 	}
 }
