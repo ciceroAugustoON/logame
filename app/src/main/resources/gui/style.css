@@ -26,6 +26,13 @@ HBox, VBox {
 	-fx-background-color: #57C723;
 }
 
+.choice-box .label {
+	-fx-text-fill: white;
+}
+.choice-box .context-menu {
+	-fx-background-color: #B4B4B4;
+}
+
 #searchbar {
 	-fx-pref-width: 420px;
 	-fx-min-height: inherit;
@@ -33,4 +40,12 @@ HBox, VBox {
 
 #conf {
 	-fx-background-image: "assets\config.jpg";
+}
+
+.game-item {
+	-fx-background-color: #ffffff;
+}
+
+.game-item:hover {
+	-fx-background-color: #f1f1f1;
 }

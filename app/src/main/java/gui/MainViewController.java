@@ -15,7 +15,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import logame.entities.enumerations.LogState;
@@ -46,7 +45,7 @@ public class MainViewController implements Initializable{
 		Label label = new Label(game.getName());
 		
 		AnchorPane anchorPane = new AnchorPane(iconImageView, label);
-		anchorPane.setStyle("-fx-background-color: #ffffff");
+		anchorPane.getStyleClass().add("game-item");
 		anchorPane.setPrefHeight(50);
 		anchorPane.setCursor(Cursor.HAND);
 		
@@ -73,14 +72,22 @@ public class MainViewController implements Initializable{
 		gameDao = DaoFactory.createGameDao();
 		
 		Responsivity.listen(mainVBox, 12);
-		Responsivity.keepPadding(mainVBox);
+		Responsivity.keepPadding(mainVBox, 15.0);
 		
 		List<String> states = new ArrayList<String>();
 		List.of(LogState.values()).forEach(item -> {states.add(item.patternName());});
 		
+		Responsivity.keepWidth(stateChoiceBox, 3);
+		
 		ObservableList<String> logStates = FXCollections.observableList(states);
 		stateChoiceBox.setItems(logStates);
 		stateChoiceBox.setValue(states.getFirst());
+		
+		stateChoiceBox.setOnAction((event) -> {
+			String selectedItem = stateChoiceBox.getSelectionModel().getSelectedItem();
+			LogState selectedState = LogState.valueOf(selectedItem.toUpperCase());
+			stateChoiceBox.setStyle("-fx-background-color: " + selectedState.getColor().toHexString());
+		});
 		
 		loadGames(LogState.PLAYING);
 		

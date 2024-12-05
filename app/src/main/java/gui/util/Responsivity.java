@@ -8,6 +8,7 @@ import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 public class Responsivity {
 	private Double width;
@@ -17,8 +18,8 @@ public class Responsivity {
 	
 	private static Map<Parent,Responsivity> listeners = new HashMap<>();
 	
-	private static Map<Pane, Integer> elementsWidth = new HashMap<>();
-	private static List<Pane> elementsPadding = new ArrayList<>();
+	private static Map<Region, Integer> elementsWidth = new HashMap<>();
+	private static Map<Pane, Double> elementsPadding = new HashMap<>();
 	
 	private Responsivity(Double width, Integer columns) {
 		this.width = width;
@@ -61,32 +62,32 @@ public class Responsivity {
 		});
 	}
 	
-	public static void setPadding(Pane pane) {
+	public static void setPadding(Pane pane, Double paddingTop) {
 		Parent parent = (pane.getParent() == null) ? pane : pane.getParent();
 		Double padding = listeners.get(parent).getPaddingX();
-		pane.setPadding(new Insets(0, padding, 0, padding));
+		pane.setPadding(new Insets(paddingTop, padding, 0, padding));
 	}
 	
-	public static void setWidth(Pane pane, Integer columns) {
-		Parent parent = (pane.getParent() == null) ? pane : pane.getParent();
+	public static void setWidth(Region region, Integer columns) {
+		Parent parent = (region.getParent() == null) ? region : region.getParent();
 		Double width = listeners.get(parent).getColumnSize() * columns;
-		pane.setPrefWidth(width);
+		region.setPrefWidth(width);
 	}
 	
-	public static void keepWidth(Pane pane, Integer columns) {
-		elementsWidth.put(pane, columns);
+	public static void keepWidth(Region region, Integer columns) {
+		elementsWidth.put(region, columns);
 	}
 	
-	public static void keepPadding(Pane pane) {
-		elementsPadding.add(pane);
+	public static void keepPadding(Pane pane, Double topPadding) {
+		elementsPadding.put(pane, topPadding);
 	}
 	
 	private static void updateElements() {
 		elementsWidth.forEach((key, value) -> {
 			setWidth(key, value);
 		});
-		elementsPadding.forEach((element) -> {
-			setPadding(element);
+		elementsPadding.forEach((key, value) -> {
+			setPadding(key, value);
 		});
 	}
 }
